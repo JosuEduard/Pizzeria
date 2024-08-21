@@ -1,14 +1,3 @@
-**Proyecto:** Software de Facturación para una Heladería
-
-**Autor:** Josué Eduardo García Estrada
-
-**Fecha:** 2024
-
-
-Este proyecto está licenciado bajo los términos de la **Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**. 
-
-----
-
 Attribution-NonCommercial 4.0 International
 
 =======================================================================
