@@ -23,7 +23,7 @@ DAW - 02T
 
 1. Cronograma de Trabajo: [Notion](https://brazen-anemone-98f.notion.site/Cronograma-de-Trabajo-bb45af8612b54bbcb4bf5f985eebcb29)
 ### Figma 
-1. Diseño de Mock ups en Figma: [Figma](https://www.figma.com/design/LdLk52BNAY3vgzEhMiOqdu/Untitled?node-id=0-1&t=90EzW01E32nTFj2R-1)
+1. Diseño de Mock ups en Figma: [Figma](https://www.figma.com/design/s5p1P9vlkDw74W6nFIKlvq/Mock-Ups-DAW?node-id=0-1&t=6m3Actf9aBI4eJ7B-1)
 
 
 ## Licencia
