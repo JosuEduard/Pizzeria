@@ -21,10 +21,14 @@ DAW - 02T
 
 <p align="center"><img src="img/Screenshot/Tablero-kanban.png"/></p>
 
-1. Cronograma de Trabajo: [Notion](https://brazen-anemone-98f.notion.site/Cronograma-de-Trabajo-bb45af8612b54bbcb4bf5f985eebcb29)
+2. Cronograma de Trabajo: [Notion](https://brazen-anemone-98f.notion.site/Cronograma-de-Trabajo-bb45af8612b54bbcb4bf5f985eebcb29)
+
+<p align="center"><img src="img/Screenshot/Cronograma.png"/></p>
+
 ### Figma 
 1. Diseño de Mock ups en Figma: [Figma](https://www.figma.com/design/s5p1P9vlkDw74W6nFIKlvq/Mock-Ups-DAW?node-id=0-1&t=6m3Actf9aBI4eJ7B-1)
 
+---
 
 ## Licencia
 
