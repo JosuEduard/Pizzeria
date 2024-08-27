@@ -1,5 +1,4 @@
 # Proyecto de Cátedra - DAW
-
 ## Descripción del proyecto
 ### Software para un punto de venta de un autoservicio de una Pizza.
 El cajero tiene la función de recibir los pedidos de los clientes y encargarse de procesar los pagos correspondientes; es fundamental que se asegure de que los pedidos se envíen correctamente a la cocina para su preparación y además de estas tareas, el cajero debe llevar un control de la información del cliente, asegurándose de que todos los datos sean precisos y estén actualizados.
