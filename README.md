@@ -36,7 +36,7 @@ DAW - 02T
 ### Notion
 1. Tablero de Kanban: [Notion](https://brazen-anemone-98f.notion.site/303fbd5e101a492f8a51437be6f0f0ec?v=f089f43b2adf405ba9120b28a00c3ca2)
 
-<p align="center"><img src="img/Screenshot/Tablero-Kanban.png"/></p>
+<p align="center"><img src="img/Screenshot/Tablero-kanban.png"/></p>
 
 2. Cronograma de Trabajo: [Notion](https://brazen-anemone-98f.notion.site/Cronograma-de-Trabajo-bb45af8612b54bbcb4bf5f985eebcb29)
 
