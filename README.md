@@ -6,9 +6,9 @@ Software de facturación para una heladería
 
 ### Integrantes
 
-1. Josué Eduardo García Estrada - **GE240098**
-2. Roberto Arturo Duarte Mejía - **DMGE240115**
-3. Eduardo Alfredo Ramírez Torres - **RT240549**
+1. Josué Eduardo García Estrada - ***GE240098***
+2. Roberto Arturo Duarte Mejía - ***DMGE240115***
+3. Eduardo Alfredo Ramírez Torres - ***RT240549***
 
 ---
 
