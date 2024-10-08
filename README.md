@@ -1,5 +1,4 @@
 # Proyecto de Cátedra - DAW
-
 ## Descripción del proyecto
 ### Software para un punto de venta de un autoservicio de una Pizza.
 El cajero tiene la función de recibir los pedidos de los clientes y encargarse de procesar los pagos correspondientes; es fundamental que se asegure de que los pedidos se envíen correctamente a la cocina para su preparación y además de estas tareas, el cajero debe llevar un control de la información del cliente, asegurándose de que todos los datos sean precisos y estén actualizados.
@@ -36,25 +35,16 @@ DAW - 02T
 ### Notion
 1. Tablero de Kanban: [Notion](https://brazen-anemone-98f.notion.site/303fbd5e101a492f8a51437be6f0f0ec?v=f089f43b2adf405ba9120b28a00c3ca2)
 
-<p align="center"><img src="img/Screenshot/Tablero-kanban.png"/></p>
-
 2. Cronograma de Trabajo: [Notion](https://brazen-anemone-98f.notion.site/Cronograma-de-Trabajo-bb45af8612b54bbcb4bf5f985eebcb29)
-
-<p align="center"><img src="img/Screenshot/Cronograma.png"/></p>
 
 ### Draw.io
 1. Diseño del diagrama de Arquitectura de la Aplicación Web: [Draw.io](https://drive.google.com/file/d/1eKFTJK-VkyhRE6dOwVYtOB47ddxB1Ry-/view?usp=sharing)
 
-<p align="center"><img src="img/Screenshot/Arquitectura.png"/></p>
-
 2. Diseño del diagrama de Entidad - Relación: [Draw.io](https://drive.google.com/file/d/1M_MC0l5FY6kjH7LG1QfuArX_J5XH9MkF/view?usp=sharing)
 
-<p align="center"><img src="img/Screenshot/DiagramaER.jpeg"/></p>
 
 ### Figma 
 1. Diseño de Mock ups en Figma: [Figma](https://www.figma.com/design/s5p1P9vlkDw74W6nFIKlvq/Mock-Ups-DAW?node-id=0-1&t=6m3Actf9aBI4eJ7B-1)
-
-<p align="center"><img src="img/Screenshot/Figma.png"/></p>
 
 ---
 
