@@ -22,3 +22,13 @@ CREATE TABLE category(
   name varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE product(
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  categoryId integer NOT NULL,
+  description varchar(255),
+  price integer,
+  status varchar(20),
+  PRIMARY KEY(id);
+);

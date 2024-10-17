@@ -13,9 +13,9 @@ let connection = mysql.createConnection({
 // Establece la conexión con la base de datos
 connection.connect((err) => {
   if (!err) {
-    console.log('Conectada');  // Si no hay error, confirma que la conexión fue exitosa
+    console.log('Conectada'); 
   } else {
-    console.log(err);  // Si hay error, imprime el error en consola
+    console.log(err); 
   }
 });
 
