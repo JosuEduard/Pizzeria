@@ -38,7 +38,7 @@ CREATE TABLE bill(
   uuid varchar(200) NOT NULL,
   name varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
-  conctactNumber varchar(20) NOT NULL,
+  contactNumber varchar(20) NOT NULL,
   paymentMethod varchar(50) NOT NULL,
   total int NOT NULL,
   productDetails JSON DEFAULT NULL,

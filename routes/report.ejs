@@ -5,7 +5,6 @@
         font-family: Arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
-
       }
       td, th{
         border: 1px solid #ddd;
@@ -41,7 +40,7 @@
         <th>Precio</th>
         <th>Sub Total</th>
       </tr>
-      <% if(productDetails.lenth > 0) { %>
+      <% if(productDetails.length > 0) { %>
         <% productDetails.forEach(product => { %>
           <tr>
             <td><%= product.name %></td>
@@ -53,7 +52,7 @@
           <%});%>
         <%}%>
     </table>
-    <h3>Total: <%= toalAmount %></h3>
+    <h3>Total: <%= totalAmount %></h3>
     <h4>Gracias por visitarnos. Por favor vuelva pronto!!</h4>
   </body>
 </html>
