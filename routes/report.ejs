@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <style>
+      table{
+        font-family: Arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+
+      }
+      td, th{
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+      }
+      h2{
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Sistema de gestión de Pizzeria</h2>
+    <!-- Tabla para insertar  -->
+    <table>
+      <tr>
+        <th>Nombre: <%= name %></th>
+        <th>Correo: <%= email %></th>
+      </tr>
+      <tr>
+        <th>Número de contacto: <%= contactNumber %></th>
+        <th>Método de pago: <%= paymentMethod %></th>
+      </tr>
+    </table>
+
+    <h3>Detalles de productos: </h3>
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Categoria</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Sub Total</th>
+      </tr>
+      <% if(productDetails.lenth > 0) { %>
+        <% productDetails.forEach(product => { %>
+          <tr>
+            <td><%= product.name %></td>
+            <td><%= product.category %></td>
+            <td><%= product.quantity %></td>
+            <td><%= product.price %></td>
+            <td><%= product.total %></td>
+          </tr>
+          <%});%>
+        <%}%>
+    </table>
+    <h3>Total: <%= toalAmount %></h3>
+    <h4>Gracias por visitarnos. Por favor vuelva pronto!!</h4>
+  </body>
+</html>
