@@ -32,3 +32,16 @@ CREATE TABLE product(
   status varchar(20),
   PRIMARY KEY(id);
 );
+
+CREATE TABLE bill(
+  id int NOT NULL AUTO_INCREMENT,
+  uuid varchar(200) NOT NULL,
+  name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  conctactNumber varchar(20) NOT NULL,
+  paymentMethod varchar(50) NOT NULL,
+  total int NOT NULL,
+  productDetails JSON DEFAULT NULL,
+  createdBy varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
