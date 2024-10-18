@@ -99,7 +99,7 @@ router.post('/forgotPassword', (req, res) => {
           to: results[0].email, // Email del destinatario (usuario que olvidó su contraseña)
           subject: 'Contraseña por pizza devs', // Asunto del correo
           // Cuerpo del mensaje en HTML con los datos de inicio de sesión
-          html: '<p><b>Sus datos de inicio de sesión para pizza dev</b><br><b>Email:</b>'+results[0].email+'<br><b>Contraseña:</b>'+results[0].password+'<br><a href="http://localhost:4200/">Haz click para loguearte</a></p>'
+          html: '<p><b>Sus datos de inicio de sesión para pizza dev</b><br><b>Email:</b>'+results[0].email+'<br><b>Contraseña:</b>'+results[0].password+'<br><a href="http://localhost:3000/">Haz click para loguearte</a></p>'
         };
 
         // Envía el correo con los datos de inicio de sesión
