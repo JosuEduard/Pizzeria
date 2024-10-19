@@ -1,0 +1,46 @@
+.header {
+  box-sizing: border-box;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f90000; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para darle algo de profundidad */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  margin-right: 15px;
+
+}
+.menu-btn i{
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 24px;
+  margin: 0;
+  font-family: 'Arial', sans-serif; 
+}
+
+.header-right .pizza-logo {
+  width: 50px;
+  height: auto; 
+}
+
+.header-right img {
+  border-radius: 50%;
+}
