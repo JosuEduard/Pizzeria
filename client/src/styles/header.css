@@ -1,13 +1,12 @@
 .header {
   box-sizing: border-box;
-  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f90000; /* Fondo oscuro */
-  color: white; /* Texto blanco */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para darle algo de profundidad */
+  background-color: #f90000; 
+  color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-left {
@@ -24,10 +23,6 @@
   cursor: pointer;
   margin-right: 15px;
 
-}
-.menu-btn i{
-  display: flex;
-  align-items: center;
 }
 
 .header-title {

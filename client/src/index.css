@@ -5,3 +5,24 @@ body {
     sans-serif;
     padding: 0;
 }
+.App {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* Define el ancho del sidebar y el resto del espacio para el main-content */
+  grid-template-rows: 20% 1fr; /* Define el alto del header y el resto del espacio para el contenido */
+  grid-template-areas:
+    'header header'
+    'sidebar main-content'
+    'sidebar main-content';
+}
+
+Header {
+  grid-area: header;
+}
+
+Sidebar {
+  grid-area: sidebar;
+}
+
+div.main-content {
+  grid-area: main-content;
+}

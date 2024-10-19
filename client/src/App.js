@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Header from './components/Header'; 
 import Sidebar from './components/Sidebar';
+import Dashboard from './components/Dashboard'; // Importamos el Dashboard
 import './index.css'; // Agregamos también estilos generales si los necesitas
-
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -15,7 +15,7 @@ function App() {
       <Header toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
       <div className="main-content">
-        {/* Aquí va el contenido principal de tu aplicación */}
+      <Dashboard /> {/* Mostramos el Dashboard */}
       </div>
     </div>
   );

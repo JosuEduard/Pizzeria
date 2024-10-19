@@ -5,12 +5,13 @@ section{
 }
 .sidebar {
   box-sizing: border-box;
-  width: 250px;
+  width: 220px;
+  height: auto;
   height: 90vh;
   background-color: #fefefe;
   position: absolute;
-  left: -250px;
   top: 0;
+  bottom: 0;
   transition: left 0.3s ease;
   color: white;
   padding-top: 20px;
