@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/dashbord.css'; // Importamos los estilos para el Dashboard
-import axios from 'axios';
+// import axios from 'axios';
+import { getDashboardDetails } from '../services/api';
 
 const Dashboard = () => {
-  const [details, setDetails] = useState({
-    category: 0,
-    product: 0,
-    bill: 0
-  });
+  const [dashboardData, setDashboardData] = useState(null);
 
-  const fetchDetails = async () => {
-    try {
-      const token = localStorage.getItem('token'); // Obtén el token del almacenamiento local
-      const response = await axios.get('http://localhost:8080/dashboard/details', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setDetails(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  
   useEffect(() => {
-    fetchDetails(); // Llamamos a la API cuando el componente se monta
+    const fetchDashboardData = async () => {
+      try {
+        const data = await getDashboardDetails();
+        setDashboardData(data);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      }
+    };
+
+    fetchDashboardData();
   }, []);
+
+  if (!dashboardData) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <div className="section-dashboard">
@@ -33,15 +29,15 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="card">
         <h2>Cantidad de Categorías</h2>
-        <p>{details.category}</p>
+        <p>{dashboardData.category}</p>
       </div>
       <div className="card">
         <h2>Cantidad de Productos</h2>
-        <p>{details.product}</p>
+        <p>{dashboardData.product}</p>
       </div>
       <div className="card">
         <h2>Cantidad de Facturas</h2>
-        <p>{details.bill}</p>
+        <p>{dashboardData.bill}</p>
       </div>
     </div>
     </div>
