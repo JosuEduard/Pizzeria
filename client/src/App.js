@@ -1,24 +1,27 @@
-import React, { useState } from 'react';
-import Header from './components/Header'; 
-import Sidebar from './components/Sidebar';
-import Dashboard from './components/Dashboard'; // Importamos el Dashboard
-import './index.css'; // Agregamos también estilos generales si los necesitas
-function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Dashboard from './components/Dashboard';
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // Cambiamos el estado
+const App = () => {
+  const isAuthenticated = () => {
+    return localStorage.getItem('token') !== null;
   };
 
   return (
-    <div className="App">
-      <Header toggleSidebar={toggleSidebar} />
-      <Sidebar isOpen={isSidebarOpen} />
-      <div className="main-content">
-      <Dashboard /> {/* Mostramos el Dashboard */}
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route 
+          path="/dashboard" 
+          element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" replace />} 
+        />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
