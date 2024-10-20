@@ -50,6 +50,14 @@ const App = () => {
             } 
           />
           <Route 
+            path="/dashboard" 
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
             path="/products" 
             element={
               <PrivateRoute>

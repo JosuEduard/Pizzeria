@@ -21,6 +21,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Funciones para las llamadas a la API
 export const login = (email, password) => api.post('/user/login', { email, password });
 export const signup = (userData) => api.post('/user/signup', userData);
 export const checkToken = () => api.get('/user/checkToken');
