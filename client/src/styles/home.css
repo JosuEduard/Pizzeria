@@ -1,0 +1,70 @@
+/* src/styles/home.css */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%; 
+  background-image: url('../assets/img/pizza-background.webp'); 
+  background-size: cover;
+  background-position: center;
+  overflow: hidden; /* Evita el scroll */
+  box-sizing: border-box;
+}
+
+.home-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(255, 165, 0, 0.9);
+}
+
+.home-header img {
+  width: 70px;
+  margin: 0;
+}
+
+.home-header h1 {
+  margin: 0 auto;
+  padding-right: 20px;
+  font-size: 40px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.btn-primary, .btn-secondary {
+  background-color: #ff4500; 
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  background-color: #dc2700;
+}
