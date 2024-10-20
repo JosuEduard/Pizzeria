@@ -1,6 +1,7 @@
+// services/api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080'; // Ajusta esto según tu configuración
+const API_URL = 'http://localhost:8080';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,7 +10,6 @@ const api = axios.create({
   },
 });
 
-// Interceptor para añadir el token a todas las peticiones
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -21,6 +21,17 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+api.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Funciones para las llamadas a la API
 export const login = (email, password) => api.post('/user/login', { email, password });
 export const signup = (userData) => api.post('/user/signup', userData);
@@ -29,6 +40,5 @@ export const getDashboardDetails = () => api.get('/dashboard/details');
 export const getProducts = () => api.get('/product/get');
 export const getCategories = () => api.get('/category/get');
 export const getUsers = () => api.get('/user/get');
-// Añade aquí más funciones para otras llamadas a la API según sea necesario
 
 export default api;

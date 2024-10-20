@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDashboardDetails } from '../services/api'; // Asegúrate de que esta función esté definida
-import '../styles/dashboard.css'; // Asegúrate de que el archivo CSS exista
+import { getDashboardDetails } from '../services/api';
+import '../styles/dashboard.css';
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -11,29 +11,33 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const data = await getDashboardDetails(); // Llama a la API para obtener los datos
-        console.log('Datos del dashboard:', data); // Verifica los datos aquí
-        setDashboardData(data); // Establece los datos en el estado
+        const response = await getDashboardDetails();
+        console.log('Datos del dashboard:', response);
+        setDashboardData(response);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
-        setError('Error al cargar los datos del dashboard.'); // Manejo de errores
+        if (error.response && error.response.status === 401) {
+          navigate('/login');
+        } else {
+          setError("Error al cargar los datos del dashboard.");
+        }
       }
     };
 
-    fetchDashboardData(); // Llama a la función para obtener los datos
-  }, []);
+    fetchDashboardData();
+  }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Elimina el token de autenticación
-    navigate('/login'); // Redirige al usuario a la página de login
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   if (error) {
-    return <div className="error-message">{error}</div>; // Muestra el mensaje de error
+    return <div className="error-message">{error}</div>;
   }
 
   if (!dashboardData) {
-    return <div className="loading">Cargando...</div>; // Mensaje de carga
+    return <div className="loading">Cargando...</div>;
   }
 
   return (
@@ -43,15 +47,15 @@ const Dashboard = () => {
       <div className="dashboard-cards">
         <div className="card">
           <h3>Cantidad de Categorías</h3>
-          <p>{dashboardData.categoryCount}</p> {/* Muestra la cantidad de categorías */}
+          <p>{dashboardData.categoryCount || 0}</p>
         </div>
         <div className="card">
           <h3>Cantidad de Productos</h3>
-          <p>joder</p> {/* Muestra la cantidad de productos */}
+          <p>{dashboardData.productCount || 0}</p>
         </div>
         <div className="card">
           <h3>Cantidad de Facturas</h3>
-          <p>{dashboardData.billCount}</p> {/* Muestra la cantidad de facturas */}
+          <p>{dashboardData.billCount || 0}</p>
         </div>
       </div>
     </div>
