@@ -1,15 +1,12 @@
 const { response } = require('express');
 const express = require('express');
 const connection = require('../connection');
-
 const router = express.Router();
-var auth = require('../services/authentication');
-var checkRole = require('../services/checkRole');
 
 
 
 // Ruta para agregar una nueva categoría a la base de datos
-router.post('/add', auth.authenticateToken, checkRole.checkRole, (req, res, next) => {
+router.post('/add', (req, res, next) => {
   let category = req.body;
   query = "INSERT INTO category (name) VALUES (?)"; // Inserta la nueva categoría en la tabla 'category'
   connection.query(query, [category.name], (err, results) => {
@@ -24,7 +21,7 @@ router.post('/add', auth.authenticateToken, checkRole.checkRole, (req, res, next
 });
 
 // Ruta para obtener todas las categorías
-router.get('/get', auth.authenticateToken, (req, res, next) => {
+router.get('/get',  (req, res, next) => {
   var query = "SELECT * FROM category ORDER BY name"; // Selecciona todas las categorías de la tabla
   connection.query(query, (err, results) => {
     if (!err) {
@@ -38,7 +35,7 @@ router.get('/get', auth.authenticateToken, (req, res, next) => {
 });
 
 // Ruta para actualizar una categoría existente por su ID
-router.patch("/update", auth.authenticateToken, checkRole.checkRole, (req, res, next) => {
+router.patch("/update", (req, res, next) => {
   let product = req.body; 
   var query = "UPDATE category SET name = ? WHERE id = ?"; // Actualiza el nombre de la categoría por su ID
   connection.query(query, [product.name, product.id], (err, results) => {

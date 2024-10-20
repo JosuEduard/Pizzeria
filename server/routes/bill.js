@@ -9,10 +9,9 @@ let pdf = require('html-pdf');
 let path = require('path');
 var fs = require('fs');
 var uuid = require('uuid');
-var auth = require('../services/authentication');
 
 
-router.post('/generateReport', auth.authenticateToken, (req, res) => {
+router.post('/generateReport', (req, res) => {
   const generatedUuid = uuid.v1();
   const orderDetails = req.body;
   var productDetailsReport = JSON.parse(orderDetails.productDetails);
@@ -61,7 +60,7 @@ router.post('/generateReport', auth.authenticateToken, (req, res) => {
   });
 });
 
-router.post('/getPdf', auth.authenticateToken, function (req, res) {
+router.post('/getPdf', function (req, res) {
   const orderDetails = req.body;
   const pdfPath = './generated_pdf/' + orderDetails.uuid + '.pdf';
   if (fs.existsSync(pdfPath)) {
@@ -101,7 +100,7 @@ router.post('/getPdf', auth.authenticateToken, function (req, res) {
 })
 
 //Obtener todas las facturas 
-router.get('/getBills', auth.authenticateToken, (req, res, next) => {
+router.get('/getBills', (req, res, next) => {
   var query = "SELECT * FROM bill ORDER BY id DESC";
   connection.query(query, (err, results) => {
     if (!err) {
@@ -113,7 +112,7 @@ router.get('/getBills', auth.authenticateToken, (req, res, next) => {
   })
 });
 
-router.delete('/delete/:id', auth.authenticateToken, (req, res, next) => {
+router.delete('/delete/:id', (req, res, next) => {
   const id = req.params.id;
   var query = "DELETE FROM bill WHERE id = ?";
   connection.query(query, [id], (err, results) => {
