@@ -7,7 +7,7 @@ const Sidebar = ({ isOpen }) => {
   const menuItems = [
     { name: 'Dashboard', iconPlaceholder: <IconLayoutDashboard stroke={2} />, href: '/dashboard' },
     { name: 'Manejar Categorías', iconPlaceholder: <IconCategoryFilled stroke={2} />, href: '/categories' },
-    { name: 'Manejar Productos', iconPlaceholder:  <IconShoppingCart stroke={2} />, href: '/products' },
+    { name: 'Manejar Productos', iconPlaceholder:  <IconShoppingCart stroke={2} />, href: '/product' },
     { name: 'Manejar Ordenes', iconPlaceholder: <IconArticleFilled stroke={2} />, href: '/orders' },
     { name: 'Facturas', iconPlaceholder: <IconReceiptFilled stroke={2} />, href: '/bills' },
   ];
