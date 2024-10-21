@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <h1 className="header-title">Gestion de Sistema de Pizzería</h1>
+        <h1 className="header-title">Gestion de Sistema de Pizzería - Macana</h1>
       </div>
       <div className="header-right">
         <img src={pizzaLogo} alt="Pizza Logo" className="pizza-logo" />
