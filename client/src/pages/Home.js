@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/home.css';
 import imgPizza from '../assets/img/pizza.png';
+import imgBackground from '../assets/img/pizza-background.webp'; // Nueva imagen de fondo
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
             <Link to="/signup" className="btn btn-secondary">Registrarse</Link>
           </div>
         </header>
+        <img className="header-image" src={imgBackground} alt='Fondo de Pizza' />
       </div>
     </div>
   );

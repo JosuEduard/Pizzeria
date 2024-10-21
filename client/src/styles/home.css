@@ -1,41 +1,37 @@
-/* src/styles/home.css */
 body {
   margin: 0;
   padding: 0;
-  height: 100%; 
-  background-image: url('../assets/img/pizza-background.webp'); 
-  background-size: cover;
-  background-position: center;
-  overflow: hidden; /* Evita el scroll */
+  height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .home-body {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-}
-
-.home-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   height: 100%;
 }
 
 .home-header {
   display: flex;
-  justify-content: space-around;
+  width: 100%;
+  justify-content: space-evenly; /* Cambiado a space-between para más espacio */
   align-items: center;
   width: 100%;
   padding: 20px;
-  background-color: rgba(255, 165, 0, 0.9);
+  background-color: rgba(255, 165, 0, 0.8);
+  z-index: 1000;
+}
+
+.header-image {
+  width: 100vw; /* Ocupa todo el ancho del viewport */
+  height: 100vh; /* Ocupa todo el alto del viewport */
+  object-fit: cover; /* Mantiene la proporción de la imagen */
+  padding: 0;
+  margin: 0;
 }
 
 .home-header img {
   width: 70px;
+  object-fit: cover;
   margin: 0;
 }
 
