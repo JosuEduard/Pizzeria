@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/product.css'; // Asegúrate de tener este archivo CSS
+import '../styles/product.css'; 
 
 const ProductManager = () => {
   // 1. Estado

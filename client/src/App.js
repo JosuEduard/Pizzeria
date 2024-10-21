@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Categories from './pages/Categories';
 import Dashboard from './pages/Dashboard';
 import Product from './pages/Product';
+import Bills from './pages/Bills';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 
@@ -52,6 +53,18 @@ const App = () => {
               <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
                 <Sidebar /> {/* Componente Sidebar */}
                 <Product /> {/* Componente Dashboard */}
+              </div>
+            </>
+          } 
+        />
+        <Route 
+          path="/Bills" 
+          element={
+            <>
+              <Header /> {/* Componente Header */}
+              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
+                <Sidebar /> {/* Componente Sidebar */}
+                <Bills /> {/* Componente Dashboard */}
               </div>
             </>
           } 
