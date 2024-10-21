@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/product.css'; 
+import '../styles/product.css';
 
 const ProductManager = () => {
   // 1. Estado
@@ -13,6 +13,8 @@ const ProductManager = () => {
     description: '',
     price: ''
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingProductId, setEditingProductId] = useState(null);
   const navigate = useNavigate();
 
   // 2. Función para obtener productos
@@ -34,7 +36,7 @@ const ProductManager = () => {
   // 3. Función para obtener categorías
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8080/category/get'); 
+      const response = await fetch('http://localhost:8080/category/get');
       const data = await response.json();
       if (response.ok) {
         setCategories(data.results);
@@ -49,60 +51,70 @@ const ProductManager = () => {
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories(); 
+    fetchCategories();
   }, [fetchProducts, fetchCategories]);
 
-  // 4. Función para agregar producto
-  const handleAddProduct = async (e) => {
+  // 4. Función para agregar/actualizar producto
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!newProduct.name.trim() || !newProduct.categoryId.trim() || !newProduct.description.trim() || !newProduct.price) {
+
+    if (!newProduct.name.trim() || !newProduct.description.trim() || !newProduct.price || newProduct.categoryId === '') {
       setError('Todos los campos son obligatorios.');
       return;
     }
+
     try {
-      const response = await fetch('http://localhost:8080/product/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newProduct), 
-      });
-      if (response.ok) {
-        setNewProduct({ name: '', categoryId: '', description: '', price: '' });
-        fetchProducts(); 
+      if (isEditing) {
+        const response = await fetch(`http://localhost:8080/product/update`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: editingProductId, ...newProduct }),
+        });
+
+        if (response.ok) {
+          setIsEditing(false);
+          setEditingProductId(null);
+          setNewProduct({ name: '', categoryId: '', description: '', price: '' });
+          fetchProducts();
+        } else {
+          const data = await response.json();
+          setError(data.message || "Error al actualizar el producto.");
+        }
       } else {
-        const data = await response.json();
-        setError(data.message || "Error al agregar el producto.");
+        const response = await fetch('http://localhost:8080/product/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newProduct),
+        });
+
+        if (response.ok) {
+          setNewProduct({ name: '', categoryId: '', description: '', price: '' });
+          fetchProducts();
+        } else {
+          const data = await response.json();
+          setError(data.message || "Error al agregar el producto.");
+        }
       }
     } catch (error) {
-      setError('Error al agregar el producto');
-    }
-  };
-  // 5. Función para actualizar producto
-  const handleUpdateProduct = async (id, updatedProduct) => {
-    if (!updatedProduct.name.trim() || !updatedProduct.description.trim() || !updatedProduct.price) {
-      setError('Todos los campos son obligatorios.');
-      return;
-    }
-    try {
-      const response = await fetch('http://localhost:8080/product/update', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id, ...updatedProduct }),
-      });
-      if (response.ok) {
-        fetchProducts(); // Recargar la lista después de actualizar
-      } else {
-        const data = await response.json();
-        setError(data.message || "Error al actualizar el producto.");
-      }
-    } catch (error) {
-      setError('Error al actualizar el producto');
+      setError('Error al enviar los datos del producto');
     }
   };
 
+  // 5. Función para cargar el formulario con el producto seleccionado
+  const handleEditProduct = (product) => {
+    setNewProduct({
+      name: product.name,
+      categoryId: product.categoryId,
+      description: product.description,
+      price: product.price,
+    });
+    setIsEditing(true);
+    setEditingProductId(product.id);
+  };
 
   // 6. Función para eliminar producto
   const handleDeleteProduct = async (id) => {
@@ -128,7 +140,7 @@ const ProductManager = () => {
       <h2 className="dashboard-title">Gestión de Productos</h2>
 
       <div className="product-content">
-        <form onSubmit={handleAddProduct} className="product-form">
+        <form onSubmit={handleFormSubmit} className="product-form">
           <input
             type="text"
             value={newProduct.name}
@@ -153,52 +165,58 @@ const ProductManager = () => {
           <textarea
             value={newProduct.description}
             onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-            placeholder="Descripción"
+            placeholder="Descripción del producto"
             className="product-textarea"
             required
-            maxLength={200}
-            minLength={10}
           />
           <input
             type="number"
             value={newProduct.price}
             onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-            placeholder="Precio"
+            placeholder="Precio del producto"
             className="product-input"
             required
-            min={0}
-            max={1000}
           />
           <button type="submit" className="add-button-product">
-            Agregar Producto
+            {isEditing ? 'Actualizar Producto' : 'Agregar Producto'}
           </button>
+          {error && <p className="error-message">{error}</p>}
         </form>
 
-        <div>
-          {products.length > 0 ? (
-            products.map((product) => (
-              <div key={product.id} className="product-card">
-                <h3>Nombre del producto: {product.name}</h3>
-                <span>Descripción: {product.description}</span>
-                <span>Categoría: {product.categoryName}</span>
-                <span>Precio: ${product.price}</span>
-                <div className="button-group">
-                  <button onClick={() => handleUpdateProduct(product.id, {
-                    name: prompt("Nuevo nombre:", product.name) || product.name,
-                    categoryId: prompt("Nuevo ID de categoría:", product.categoryId) || product.categoryId,
-                    description: prompt("Nueva descripción:", product.description) || product.description,
-                    price: prompt("Nuevo precio:", product.price) || product.price
-                  })} className="actualizar-button">
-                    Actualizar
-                  </button>
-                  <button onClick={() => handleDeleteProduct(product.id)} className="eliminar-button">
-                    Eliminar
-                  </button>
-                </div>
-              </div>
-            ))
+        <div className="product-list">
+          <h3>Lista de Productos</h3>
+          {products.length === 0 ? (
+            <p className='NohayCategorias'>No hay productos disponibles.</p>
           ) : (
-            <div className='NohayCategorias'>No hay productos disponibles.</div>
+            <table className="product-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Descripción</th>
+                  <th>Precio</th>
+                  <th className="actions-column">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product.id}>
+                    <td>{product.name}</td>
+                    <td>{product.categoryId}</td>
+                    <td>{product.description}</td>
+                    <td>$ {product.price}</td>
+                    <td className="button-group">
+                      <button onClick={() => handleEditProduct(product)} className="actualizar-button">
+                        Actualizar
+                      </button>
+                      <button onClick={() => handleDeleteProduct(product.id)} className="eliminar-button">
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
       </div>
