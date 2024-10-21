@@ -10,103 +10,29 @@ import Bills from './pages/Bills';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 
-
+const Layout = ({ children }) => (
+  <div className="app-container">
+    <Header />
+    <div className="content-container">
+      <Sidebar />
+      <main className="main-content">
+        {children}
+      </main>
+    </div>
+  </div>
+);
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Rutas públicas */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
-        <Route 
-          path="/dashboard" 
-          element={
-            <>
-              <Header /> {/* Componente Header */}
-              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
-                <Sidebar /> {/* Componente Sidebar */}
-                <Dashboard /> {/* Componente Dashboard */}
-              </div>
-            </>
-          } 
-        />
-        <Route 
-          path="/Categories" 
-          element={
-            <>
-              <Header /> {/* Componente Header */}
-              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
-                <Sidebar /> {/* Componente Sidebar */}
-                <Categories /> {/* Componente Dashboard */}
-              </div>
-            </>
-          } 
-        />
-        <Route 
-          path="/Product" 
-          element={
-            <>
-              <Header /> {/* Componente Header */}
-              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
-                <Sidebar /> {/* Componente Sidebar */}
-                <Product /> {/* Componente Dashboard */}
-              </div>
-            </>
-          } 
-        />
-        <Route 
-          path="/Bills" 
-          element={
-            <>
-              <Header /> {/* Componente Header */}
-              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
-                <Sidebar /> {/* Componente Sidebar */}
-                <Bills /> {/* Componente Dashboard */}
-              </div>
-            </>
-          } 
-        />
-
-        {/* Otras rutas comentadas */}
-        {/* <Route 
-          path="/products" 
-          element={
-            <>
-              <Header />
-              <div className="flex">
-                <Sidebar />
-                <Products />
-              </div>
-            </>
-          } 
-        />
-        <Route 
-          path="/categories" 
-          element={
-            <>
-              <Header />
-              <div className="flex">
-                <Sidebar />
-                <Categories />
-              </div>
-            </>
-          } 
-        />
-        <Route 
-          path="/users" 
-          element={
-            <>
-              <Header />
-              <div className="flex">
-                <Sidebar />
-                <Users />
-              </div>
-            </>
-          } 
-        /> */}
+        <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+        <Route path="/categories" element={<Layout><Categories /></Layout>} />
+        <Route path="/product" element={<Layout><Product /></Layout>} />
+        <Route path="/bills" element={<Layout><Bills /></Layout>} />
       </Routes>
     </Router>
   );

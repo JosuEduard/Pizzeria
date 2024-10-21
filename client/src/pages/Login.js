@@ -27,10 +27,11 @@ const Login = () => {
   };
 
   return (
+    <section className="login-container">
     <div className="container">
       <h2>Login de Pizzería</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='input-container'>
           <label htmlFor="email-address">Correo Electrónico</label>
           <input
             id="email-address"
@@ -42,7 +43,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div>
+        <div className='input-container'>
           <label htmlFor="password">Contraseña</label>
           <input
             id="password"
@@ -60,6 +61,7 @@ const Login = () => {
         <button type="submit">Iniciar Sesión</button>
       </form>
     </div>
+    </section>
   );
 };
 

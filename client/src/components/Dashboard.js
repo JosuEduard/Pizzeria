@@ -16,19 +16,14 @@ const Dashboard = () => {
         setDashboardData(response);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
-        if (error.response && error.response.status === 401) {
-          navigate('/login');
-        } else {
-          setError("Error al cargar los datos del dashboard.");
-        }
+        setError("Error al cargar los datos del dashboard.");
       }
     };
 
     fetchDashboardData();
-  }, [navigate]);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
     navigate('/login');
   };
 

@@ -3,7 +3,7 @@ import '../styles/header.css'; // Aquí cargamos los estilos para el header
 //Importando imagenes
 import pizzaLogo from '../assets/img/pizza.png'; 
 
-function Header() {
+const Header = () => {
   return (
     <header className="header">
       <div className="header-left">

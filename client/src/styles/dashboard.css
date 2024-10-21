@@ -1,46 +1,37 @@
-* dashboard.css */
-
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #e9ecef; /* Fondo gris claro para todo el body */
-  margin: 0;
-  padding: 0;
-}
 
 .dashboard-container {
-  max-width: calc(100% - 240px); /* Ancho máximo para el contenedor, considerando el sidebar */
-  margin: 20px 0 20px 240px; /* Margen superior e inferior, y margen izquierdo para el sidebar */
   padding: 20px;
-  background-color: #f4f4f4; /* Fondo gris claro */
+  background-color: #f4f4f4; 
   border-radius: 8px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s; /* Transición para el fondo */
+  transition: background-color 0.3s;
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px; /* Espacio entre el encabezado y el contenido */
+  margin-bottom: 20px; 
 }
 
 .dashboard-title {
-  font-size: 2rem; /* Tamaño de fuente más grande */
+  font-size: 2rem; 
   color: #333;
-  text-align: left; /* Alinear a la izquierda */
+  text-align: left; 
 }
 
 .logout-button {
-  display: block; /* Centrar el botón */
-  width: 200px; /* Ancho fijo para el botón */
+  display: block; 
+  width: 200px;
+  margin-bottom: 10px;
   background-color: #ff4d4d; /* Color de fondo del botón */
   color: white;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem; /* Tamaño de fuente más grande */
-  transition: background-color 0.3s; /* Transición de color */
+  font-size: 1rem; 
+  transition: background-color 0.3s;
 }
 
 .logout-button:hover {

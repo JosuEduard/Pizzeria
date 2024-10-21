@@ -13,7 +13,7 @@ const Sidebar = ({ isOpen }) => {
   ];
 
   return (
-    <section>
+    <section className='sidebar-container'>
       <div className={`sidebar ${isOpen ? 'open' : ''}`}>
         <nav>
           <ul>

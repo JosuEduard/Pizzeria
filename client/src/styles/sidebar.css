@@ -1,13 +1,10 @@
 
-section{
+.sidebar-container{
   position: relative;
-
 }
 .sidebar {
   box-sizing: border-box;
-  width: 220px;
-  height: auto;
-  height: 90vh;
+  width: 250px;
   background-color: #fefefe;
   position: absolute;
   top: 0;
@@ -15,10 +12,6 @@ section{
   transition: left 0.3s ease;
   color: white;
   padding-top: 20px;
-}
-
-.sidebar.open {
-  left: 0;
   box-shadow: 2px 5px 6px 1px rgba(0,0,0,0.4);
 }
 
