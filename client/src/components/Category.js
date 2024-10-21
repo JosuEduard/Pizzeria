@@ -115,7 +115,7 @@ const CategoryManager = () => {
             placeholder="Nombre de la nueva categoría"
             className="category-input"
           />
-          <button type="submit" className="add-button">
+          <button type="submit" className="add-button-category">
             Agregar Categoría
           </button>
         </form>

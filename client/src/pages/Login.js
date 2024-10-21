@@ -41,6 +41,7 @@ const Login = () => {
             required
             placeholder="Ingresa tu correo"
             value={email}
+            className='input-login'
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -51,6 +52,7 @@ const Login = () => {
             name="password"
             type="password"
             required
+            className='input-login'
             placeholder="Ingresa tu contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

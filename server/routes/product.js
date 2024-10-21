@@ -5,7 +5,7 @@ const router = express.Router();
 // Ruta para agregar un producto
 router.post('/add', (req, res) => {
   let product = req.body;
-  var query = "INSERT INTO product (name, categoryId, description, price, status) VALUES (?, ?, ?, ?, 'true')";
+  var query = "INSERT INTO product (name, categoryId, description, price) VALUES (?, ?, ?, ?)";
   connection.query(query, [product.name, product.categoryId, product.description, product.price], (err, results) => {
     if (!err) {
       return res.status(200).json({ message: "Producto agregado correctamente" });
@@ -17,7 +17,7 @@ router.post('/add', (req, res) => {
 
 // Ruta para obtener todos los productos junto con su categoría asociada
 router.get('/get', (req, res, next) => {
-  var query = `SELECT p.id, p.name, p.description, p.price, p.status, c.id as categoryId, c.name as categoryName FROM product as p INNER JOIN category as c WHERE p.categoryId = c.id`;
+  var query = `SELECT p.id, p.name, p.description, p.price, c.id as categoryId, c.name as categoryName FROM product as p INNER JOIN category as c WHERE p.categoryId = c.id`;
   connection.query(query, (err, results) => {
     if (!err) {
       return res.status(200).json(results);
@@ -85,7 +85,6 @@ router.patch('/updateStatus', (req, res, next) => {
   });
 });
 
-// Ruta para eliminar un producto por su ID
 router.delete('/delete/:id', (req, res, next) => {
   const id = req.params.id;
   var query = "DELETE FROM product WHERE id = ?";
@@ -100,5 +99,6 @@ router.delete('/delete/:id', (req, res, next) => {
     }
   });
 });
+
 
 module.exports = router;

@@ -46,8 +46,8 @@ body {
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 15px;
-  min-width: 300px;
   margin: 0;
+  flex: 1;
 }
 
 .category-input:focus {
@@ -56,7 +56,7 @@ body {
   box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
 }
 
-.add-button {
+.add-button-category {
   height: 45px;
   padding: 0 30px;
   background-color: #0056b3;
@@ -70,7 +70,7 @@ body {
   width: 200px;
 }
 
-.add-button:hover {
+.add-button-category:hover {
   background-color: #09f;
 }
 
@@ -171,6 +171,7 @@ body {
   color: #4a5568;
   margin-bottom: 15px;
   text-align: center;
+  margin-top: 0;
 }
 
 @media (max-width: 768px) {

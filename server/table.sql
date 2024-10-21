@@ -22,7 +22,6 @@ CREATE TABLE product(
   categoryId integer NOT NULL,
   description varchar(255),
   price integer,
-  status varchar(20),
   PRIMARY KEY(id),
   FOREIGN KEY (categoryId) REFERENCES category(id)
 );

@@ -5,7 +5,7 @@ import '../styles/product.css';
 const ProductManager = () => {
   // 1. Estado
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]); // Estado para las categorías
+  const [categories, setCategories] = useState([]);
   const [error, setError] = useState('');
   const [newProduct, setNewProduct] = useState({
     name: '',
@@ -34,10 +34,10 @@ const ProductManager = () => {
   // 3. Función para obtener categorías
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8080/category/get'); // Cambia la URL según tu API
+      const response = await fetch('http://localhost:8080/category/get'); 
       const data = await response.json();
       if (response.ok) {
-        setCategories(data.results); // Asegúrate de que la estructura de datos sea correcta
+        setCategories(data.results);
       } else {
         setError(data.message || "Error al cargar las categorías.");
       }
@@ -49,12 +49,12 @@ const ProductManager = () => {
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories(); // Llama a la función para obtener categorías
+    fetchCategories(); 
   }, [fetchProducts, fetchCategories]);
 
   // 4. Función para agregar producto
   const handleAddProduct = async (e) => {
-    e.preventDefault(); // Evita el comportamiento por defecto del formulario
+    e.preventDefault();
     if (!newProduct.name.trim() || !newProduct.categoryId.trim() || !newProduct.description.trim() || !newProduct.price) {
       setError('Todos los campos son obligatorios.');
       return;
@@ -65,11 +65,11 @@ const ProductManager = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newProduct), // Envía el nuevo producto
+        body: JSON.stringify(newProduct), 
       });
       if (response.ok) {
-        setNewProduct({ name: '', categoryId: '', description: '', price: '' }); // Limpia el formulario
-        fetchProducts(); // Recarga la lista de productos
+        setNewProduct({ name: '', categoryId: '', description: '', price: '' });
+        fetchProducts(); 
       } else {
         const data = await response.json();
         setError(data.message || "Error al agregar el producto.");
@@ -78,10 +78,9 @@ const ProductManager = () => {
       setError('Error al agregar el producto');
     }
   };
-
   // 5. Función para actualizar producto
   const handleUpdateProduct = async (id, updatedProduct) => {
-    if (!updatedProduct.name.trim() || !updatedProduct.categoryId.trim() || !updatedProduct.description.trim() || !updatedProduct.price) {
+    if (!updatedProduct.name.trim() || !updatedProduct.description.trim() || !updatedProduct.price) {
       setError('Todos los campos son obligatorios.');
       return;
     }
@@ -104,17 +103,9 @@ const ProductManager = () => {
     }
   };
 
-  // 6. Renderizado
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
 
-  if (products.length === 0) {
-    return     <div className="loading">Cargando...</div>;
-}
-
-// 7. Función para eliminar producto
-const handleDeleteProduct = async (id) => {
+  // 6. Función para eliminar producto
+  const handleDeleteProduct = async (id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
       try {
         const response = await fetch(`http://localhost:8080/product/delete/${id}`, {
@@ -131,11 +122,11 @@ const handleDeleteProduct = async (id) => {
       }
     }
   };
-  
-return (
+
+  return (
     <div className="dashboard-container">
       <h2 className="dashboard-title">Gestión de Productos</h2>
-  
+
       <div className="product-content">
         <form onSubmit={handleAddProduct} className="product-form">
           <input
@@ -152,7 +143,7 @@ return (
             className="product-select"
             required
           >
-            <option value="" disabled>Selecciona una categoría</option>
+            <option value="" disabled required>Selecciona una categoría</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -165,6 +156,8 @@ return (
             placeholder="Descripción"
             className="product-textarea"
             required
+            maxLength={200}
+            minLength={10}
           />
           <input
             type="number"
@@ -173,33 +166,40 @@ return (
             placeholder="Precio"
             className="product-input"
             required
+            min={0}
+            max={1000}
           />
-          <button type="submit" className="add-button">
+          <button type="submit" className="add-button-product">
             Agregar Producto
           </button>
         </form>
-  
+
         <div>
-          {products.map((product) => (
-            <div key={product.id} className="product-card">
-              <h3>{product.name}</h3>
-              <p>Descripción: {product.description}</p>
-              <p>Precio: ${product.price}</p>
-              <div className="button-group">
-                <button onClick={() => handleUpdateProduct(product.id, {
-                  name: prompt("Nuevo nombre:", product.name) || product.name,
-                  categoryId: prompt("Nuevo ID de categoría:", product.categoryId) || product.categoryId,
-                  description: prompt("Nueva descripción:", product.description) || product.description,
-                  price: prompt("Nuevo precio:", product.price) || product.price
-                })}>
-                  Actualizar
-                </button>
-                <button onClick={() => handleDeleteProduct(product.id)} className="delete-button">
-                  Eliminar
-                </button>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <div key={product.id} className="product-card">
+                <h3>Nombre del producto: {product.name}</h3>
+                <span>Descripción: {product.description}</span>
+                <span>Categoría: {product.categoryName}</span>
+                <span>Precio: ${product.price}</span>
+                <div className="button-group">
+                  <button onClick={() => handleUpdateProduct(product.id, {
+                    name: prompt("Nuevo nombre:", product.name) || product.name,
+                    categoryId: prompt("Nuevo ID de categoría:", product.categoryId) || product.categoryId,
+                    description: prompt("Nueva descripción:", product.description) || product.description,
+                    price: prompt("Nuevo precio:", product.price) || product.price
+                  })} className="actualizar-button">
+                    Actualizar
+                  </button>
+                  <button onClick={() => handleDeleteProduct(product.id)} className="eliminar-button">
+                    Eliminar
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className='NohayCategorias'>No hay productos disponibles.</div>
+          )}
         </div>
       </div>
     </div>
