@@ -53,5 +53,23 @@ router.patch("/update", (req, res, next) => {
   });
 });
 
+// Ruta para eliminar una categoría por su ID
+router.delete('/delete/:id', (req, res, next) => {
+  const id = req.params.id;
+  const query = "DELETE FROM category WHERE id = ?";
+  
+  connection.query(query, [id], (err, results) => {
+    if (!err) {
+      if (results.affectedRows == 0) {
+        return res.status(404).json({ message: "Categoría no encontrada." });
+      }
+      return res.status(200).json({ message: "Categoría eliminada exitosamente." });
+    } else {
+      return res.status(500).json(err);
+    }
+  });
+});
+
+
 
 module.exports = router;

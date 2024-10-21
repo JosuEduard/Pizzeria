@@ -24,7 +24,7 @@ const Dashboard = () => {
   }, []);
 
   const handleLogout = () => {
-    navigate('/login');
+    navigate('/');
   };
 
   if (error) {

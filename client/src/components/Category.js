@@ -32,7 +32,6 @@ const CategoryManager = () => {
   // 3. Función para agregar categoría
   const handleAddCategory = async (e) => {
     e.preventDefault(); // Evita el comportamiento por defecto del formulario
-    console.log('Valor de newCategory:', newCategory); // Para depurar
     if (!newCategory.trim()) { // Verifica si el nombre de la categoría está vacío
       setError('El nombre de la categoría no puede estar vacío.');
       return;
@@ -82,15 +81,27 @@ const CategoryManager = () => {
     }
   };
 
-  // 5. Renderizado
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
+  // 5. Función para eliminar una categoría
+  const handleDeleteCategory = async (id) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar esta categoría?");
+    if (!confirmDelete) return;
 
-  if (categories.length === 0) {
-    return <div className="loading">Cargando...</div>;
-  }
+    try {
+      const response = await fetch(`http://localhost:8080/category/delete/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        fetchCategories(); // Actualiza la lista de categorías después de la eliminación
+      } else {
+        const data = await response.json();
+        setError(data.message || "Error al eliminar la categoría, No se puede eliminar porque hay un producto asociado a ella.");
+      }
+    } catch (error) {
+      setError('Error al eliminar la categoría');
+    }
+  };
 
+  // 6. Renderizado
   return (
     <div className="dashboard-container">
       <h2 className="dashboard-title">Gestión de Categorías</h2>
@@ -109,16 +120,25 @@ const CategoryManager = () => {
           </button>
         </form>
 
-        <div>
-          {categories.map((category) => (
-            <div key={category.id} className="category-card">
-              <h3>{category.name}</h3>
-              <button onClick={() => handleUpdateCategory(category.id, prompt("Nuevo nombre:", category.name))}>
-                Actualizar
-              </button>
-            </div>
-          ))}
-        </div>
+        {categories.length === 0 ? (
+          <p className='NohayCategorias'>No hay categorías. ¡Agrega la primera!</p>
+        ) : (
+          <div>
+            {categories.map((category) => (
+              <div key={category.id} className="category-card">
+                <h3>{category.name}</h3>
+                <div className='buttons-container'>
+                  <button className='actualizar-button' onClick={() => handleUpdateCategory(category.id, prompt("Nuevo nombre:", category.name))}>
+                    Actualizar
+                  </button>
+                  <button className='eliminar-button' onClick={() => handleDeleteCategory(category.id)}>
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
