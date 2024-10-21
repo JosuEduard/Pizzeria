@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
+import Categories from './pages/Categories';
 import Dashboard from './pages/Dashboard';
-// import Products from './pages/Product';
-// import Categories from './pages/Categories';
-// import Users from './pages/User';
+import Product from './pages/Product';
+import Bills from './pages/Bills';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+
+
 
 const App = () => {
   return (
@@ -23,10 +25,52 @@ const App = () => {
           path="/dashboard" 
           element={
             <>
-                <Dashboard />
+              <Header /> {/* Componente Header */}
+              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
+                <Sidebar /> {/* Componente Sidebar */}
+                <Dashboard /> {/* Componente Dashboard */}
+              </div>
             </>
           } 
         />
+        <Route 
+          path="/Categories" 
+          element={
+            <>
+              <Header /> {/* Componente Header */}
+              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
+                <Sidebar /> {/* Componente Sidebar */}
+                <Categories /> {/* Componente Dashboard */}
+              </div>
+            </>
+          } 
+        />
+        <Route 
+          path="/Product" 
+          element={
+            <>
+              <Header /> {/* Componente Header */}
+              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
+                <Sidebar /> {/* Componente Sidebar */}
+                <Product /> {/* Componente Dashboard */}
+              </div>
+            </>
+          } 
+        />
+        <Route 
+          path="/Bills" 
+          element={
+            <>
+              <Header /> {/* Componente Header */}
+              <div className="flex"> {/* Contenedor para Sidebar y Dashboard */}
+                <Sidebar /> {/* Componente Sidebar */}
+                <Bills /> {/* Componente Dashboard */}
+              </div>
+            </>
+          } 
+        />
+
+        {/* Otras rutas comentadas */}
         {/* <Route 
           path="/products" 
           element={
