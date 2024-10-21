@@ -1,83 +1,70 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-import Products from './pages/Product';
-import Categories from './pages/Categories';
-import Users from './pages/User';
+// import Products from './pages/Product';
+// import Categories from './pages/Categories';
+// import Users from './pages/User';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 
-// Componente para las rutas privadas
-const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-
-  // Si el usuario no está autenticado, redirige al login
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-
-  // Si está autenticado, renderiza el layout con Header, Sidebar y el contenido
-  return (
-    <>
-      <Header />
-      <div className="flex">
-        <Sidebar />
-        {children}
-      </div>
-    </>
-  );
-};
-
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Rutas públicas */}
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          
-          {/* Rutas privadas */}
-          <Route 
-            path="/dashboard" 
-            element={
-              <PrivateRoute>
+    <Router>
+      <Routes>
+        {/* Rutas públicas */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        <Route 
+          path="/dashboard" 
+          element={
+            <>
                 <Dashboard />
-              </PrivateRoute>
-            } 
-          />
-          <Route 
-            path="/products" 
-            element={
-              <PrivateRoute>
+            </>
+          } 
+        />
+        {/* <Route 
+          path="/products" 
+          element={
+            <>
+              <Header />
+              <div className="flex">
+                <Sidebar />
                 <Products />
-              </PrivateRoute>
-            } 
-          />
-          <Route 
-            path="/categories" 
-            element={
-              <PrivateRoute>
+              </div>
+            </>
+          } 
+        />
+        <Route 
+          path="/categories" 
+          element={
+            <>
+              <Header />
+              <div className="flex">
+                <Sidebar />
                 <Categories />
-              </PrivateRoute>
-            } 
-          />
-          <Route 
-            path="/users" 
-            element={
-              <PrivateRoute>
+              </div>
+            </>
+          } 
+        />
+        <Route 
+          path="/users" 
+          element={
+            <>
+              <Header />
+              <div className="flex">
+                <Sidebar />
                 <Users />
-              </PrivateRoute>
-            } 
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
+              </div>
+            </>
+          } 
+        /> */}
+      </Routes>
+    </Router>
   );
 };
 

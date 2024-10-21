@@ -13,10 +13,16 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/user/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/dashboard');
+  
+      // Comprueba si el campo 'success' existe y si es true
+      if (response.data.success) {
+        console.log("Login exitoso");
+        navigate('/dashboard'); // Redirige al dashboard
+      } else {
+        setError('Credenciales incorrectas');
+      }
     } catch (err) {
-      setError(err.response.data.message || 'Ocurrió un error al iniciar sesión');
+      setError('Ocurrió un error al iniciar sesión');
     }
   };
 

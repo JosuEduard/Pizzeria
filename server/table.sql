@@ -7,7 +7,6 @@ CREATE TABLE user(
   contactNumber varchar(20),
   email varchar(50),
   password varchar(250),
-  status varchar(20),
   UNIQUE (email)
 );
 

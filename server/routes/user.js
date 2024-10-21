@@ -39,12 +39,12 @@ router.post('/login', (req, res) => {
   connection.query(query, [user.email], (err, results) => {
     if (!err) {
       if (results.length <= 0 || results[0].password != user.password) {
-        return res.status(401).json({ message: "Nombre o Contraseña incorrecta" });  // Error de autenticación
+        return res.status(401).json({ success: false, message: "Nombre o Contraseña incorrecta" });  // Error de autenticación
       } else {
-        return res.status(200).json({ message: "Inicio de sesión exitoso" });  // Inicio de sesión exitoso
+        return res.status(200).json({ success: true, message: "Inicio de sesión exitoso" });  // Inicio de sesión exitoso
       }
     } else {
-      return res.status(500).json(err);  // Si hubo un error en la consulta SQL
+      return res.status(500).json({ success: false, err });  // Si hubo un error en la consulta SQL
     }
   });
 });

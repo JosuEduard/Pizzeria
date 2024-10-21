@@ -9,21 +9,9 @@ const api = axios.create({
   },
 });
 
-// Interceptor para añadir el token a todas las peticiones
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 export const login = (email, password) => api.post('/user/login', { email, password });
 export const signup = (userData) => api.post('/user/signup', userData);
-export const checkToken = () => api.get('/user/checkToken');
 export const getDashboardDetails = () => api.get('/dashboard/details');
 export const getProducts = () => api.get('/product/get');
 export const getCategories = () => api.get('/category/get');
