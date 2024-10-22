@@ -9,7 +9,6 @@ const Sidebar = ({ isOpen }) => {
     { name: 'Manejar Categorías', iconPlaceholder: <IconCategoryFilled stroke={2} />, href: '/categories' },
     { name: 'Manejar Productos', iconPlaceholder:  <IconShoppingCart stroke={2} />, href: '/product' },
     { name: 'Manejar Ordenes', iconPlaceholder: <IconArticleFilled stroke={2} />, href: '/order' },
-    { name: 'Facturas', iconPlaceholder: <IconReceiptFilled stroke={2} />, href: '/bills' },
   ];
 
   return (

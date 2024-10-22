@@ -40,4 +40,5 @@ export const getProducts = () => api.get('/product/get');
 export const getCategories = () => api.get('/category/get');
 export const getUsers = () => api.get('/user/get');
 
+
 export default api;
