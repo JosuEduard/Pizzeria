@@ -12,7 +12,7 @@ router.post('/add', (req, res, next) => {
     if (!err) {
       // Si la inserción es exitosa, agregar los productos de la orden en 'order_items'
       const orderId = results.insertId;
-      const orderItemsQuery = "INSERT INTO order_items (order_id, categoryId, product, price, quantity, total) VALUES ?";
+      const orderItemsQuery = "INSERT INTO order_items (order_id, category, product, price, quantity, total) VALUES ?";
       
       const orderItems = order.products.map(product => [orderId, product.category, product.product, product.price, product.quantity, product.total]);
       
@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
 
 // Ruta para obtener todas las órdenes
 router.get('/get', (req, res, next) => {
-  const query = "SELECT * FROM orders ORDER BY created_at DESC";
+  const query = "SELECT * FROM orders ORDER BY created_at ASC";
   connection.query(query, (err, results) => {
     if (!err) {
       return res.status(200).json(results);

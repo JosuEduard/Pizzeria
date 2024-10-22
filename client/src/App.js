@@ -9,6 +9,7 @@ import Product from './pages/Product';
 import Bills from './pages/Bills';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import Order from './pages/OrderPage'; // Importar la página de pedidos
 
 const Layout = ({ children }) => (
   <div className="app-container">
@@ -32,7 +33,9 @@ const App = () => {
         <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
         <Route path="/categories" element={<Layout><Categories /></Layout>} />
         <Route path="/product" element={<Layout><Product /></Layout>} />
-        <Route path="/bills" element={<Layout><Bills /></Layout>} />
+        <Route path="/bill" element={<Layout><Product /></Layout>} />
+        {/* Añadir la nueva ruta para la página de pedidos */}
+        <Route path="/order" element={<Layout><Order /></Layout>} />
       </Routes>
     </Router>
   );

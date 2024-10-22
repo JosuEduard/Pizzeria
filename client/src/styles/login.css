@@ -1,4 +1,5 @@
-.login-container{
+/* Contenedor principal del login */
+.login-page {
   background-color: #eee;
   display: flex;
   justify-content: center;
@@ -6,7 +7,7 @@
   min-height: 100vh;
 }
 
-.container {
+.login-container {
   background-color: #fff;
   padding: 2rem;
   border-radius: 12px;
@@ -20,7 +21,7 @@
 }
 
 /* Encabezado */
-h2 {
+.login-title {
   text-align: center;
   font-size: 2.5rem;
   color: #dc2700; /* Un rojo que evoca la temática de la pizza */
@@ -28,33 +29,36 @@ h2 {
   margin-top: 0;
   font-weight: 700;
 }
-/* Input fields */
-input.input-login {
-  width: 93%;
-  padding: 12px 15px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+
+/* Estilos de los inputs */
+.input-group {
   margin-bottom: 1rem;
-  font-size: 1rem;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
+  width: 93%;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #dc2700;
-  outline: none;
-}
-
-label {
+.input-label {
   display: block;
   margin-bottom: 8px;
   color: #4f4f4f; /* Un gris suave */
 }
 
+.login-input {
+  width: 93%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+  border-color: #dc2700;
+  outline: none;
+}
+
 /* Botón de submit */
-button {
+.submit-button {
   width: 100%;
   padding: 12px;
   background-color: #dc2700; /* Rojo pizza */
@@ -67,15 +71,16 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.submit-button:hover {
   background-color: #d6452d; /* Un rojo más oscuro en hover */
 }
 
-button:focus {
+.submit-button:focus {
   outline: none;
   box-shadow: 0 0 5px 2px rgba(179, 60, 18, 0.4);
 }
 
+/* Mensaje de error */
 .error-message {
   color: #d6452d; 
   font-size: 0.9rem;
@@ -83,21 +88,18 @@ button:focus {
   margin-bottom: 1rem;
   text-align: center;
 }
-.text-center {
-  text-align: center;
-}
 
 /* Para pantallas más pequeñas */
 @media (max-width: 600px) {
-  .container {
+  .login-container {
     padding: 1.5rem;
   }
 
-  h2 {
+  .login-title {
     font-size: 2rem;
   }
 
-  button {
+  .submit-button {
     font-size: 0.9rem;
   }
 }

@@ -14,7 +14,6 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8080/user/login', { email, password });
   
-      // Comprueba si el campo 'success' existe y si es true
       if (response.data.success) {
         console.log("Login exitoso");
         navigate('/dashboard'); // Redirige al dashboard
@@ -27,43 +26,42 @@ const Login = () => {
   };
 
   return (
-    
-    <section className="login-container">
-    <div className="container">
-      <h2>Login de Pizzería</h2>
-      <form onSubmit={handleSubmit}>
-        <div className='input-container'>
-          <label htmlFor="email-address">Correo Electrónico</label>
-          <input
-            id="email-address"
-            name="email"
-            type="email"
-            required
-            placeholder="Ingresa tu correo"
-            value={email}
-            className='input-login'
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className='input-container'>
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            className='input-login'
-            placeholder="Ingresa tu contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+    <section className="login-page">
+      <div className="login-container">
+        <h2 className="login-title">Login de Pizzería</h2>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className='input-group'>
+            <label htmlFor="email-address" className="input-label">Correo Electrónico</label>
+            <input
+              id="email-address"
+              name="email"
+              type="email"
+              required
+              placeholder="Ingresa tu correo"
+              value={email}
+              className='login-input'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className='input-group'>
+            <label htmlFor="password" className="input-label">Contraseña</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              className='login-input'
+              placeholder="Ingresa tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-        {error && <div className="error-message">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
 
-        <button type="submit">Iniciar Sesión</button>
-      </form>
-    </div>
+          <button type="submit" className="submit-button">Iniciar Sesión</button>
+        </form>
+      </div>
     </section>
   );
 };
