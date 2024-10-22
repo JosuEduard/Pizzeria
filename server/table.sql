@@ -38,3 +38,26 @@ CREATE TABLE bill(
   createdBy varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
+
+-- orders: Contiene la información principal de las órdenes.
+
+CREATE TABLE orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  contact_number VARCHAR(50) NOT NULL,
+  payment_method VARCHAR(50) NOT NULL,
+  total_amount DECIMAL(10, 2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  category VARCHAR(255) NOT NULL,
+  product VARCHAR(255) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  quantity INT NOT NULL,
+  total DECIMAL(10, 2) NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(id)
+);
