@@ -9,7 +9,8 @@ const Order = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true); // Cambiado a true inicialmente
+  const [isLoading, setIsLoading] = useState(true);// Cambiado a true inicialmente
+  const [orders, setOrders] = useState([]); 
   const [orderDetails, setOrderDetails] = useState({
     name: '',
     email: '',
@@ -66,6 +67,24 @@ const Order = () => {
     setOrderDetails({ ...orderDetails, [name]: value });
   };
 
+  const fetchOrders = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://localhost:8080/order/get');
+      const data = await response.json();
+      if (response.ok) {
+        setOrders(data);
+      } else {
+        setError('Error al cargar los pedidos');
+      }
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      setError('Error al cargar los pedidos');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedCategory || !selectedProduct) {
@@ -119,6 +138,9 @@ const Order = () => {
         setSelectedProduct('');
         setQuantity(1);
         setError('');
+        
+        // Llamar a fetchOrders para actualizar la tabla inmediatamente
+        fetchOrders();
       } else {
         setError(data.message || "Error al agregar la orden.");
       }

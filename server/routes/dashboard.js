@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/details', (req, res, next) => {
   let categoryCount;
   let productCount;
-  let billCount;
+  let orderCount;
 
   let query = "SELECT COUNT(id) as categoryCount FROM category";
   connection.query(query, (err, results) => {
@@ -17,14 +17,14 @@ router.get('/details', (req, res, next) => {
         if (!err) {
           productCount = results[0].productCount;
 
-          let query3 = "SELECT COUNT(id) as billCount FROM bill";
+          let query3 = "SELECT COUNT(id) as orderCount FROM orders";
           connection.query(query3, (err, results) => {
             if (!err) {
-              billCount = results[0].billCount;
+              orderCount = results[0].orderCount;
               var data = {
                 categoryCount: categoryCount,
                 productCount: productCount,
-                billCount: billCount
+                orderCount: orderCount
               };
 
               return res.status(200).json(data);

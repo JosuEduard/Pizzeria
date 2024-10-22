@@ -84,12 +84,12 @@ body {
 .category-card {
   background-color: white;
   margin-bottom: 10px;
-  padding: 20px 25px;
+  padding: 10px 25px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 60px;
+  min-height: 20px;
 }
 
 .category-name {

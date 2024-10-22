@@ -49,8 +49,8 @@ const Dashboard = () => {
           <p>{dashboardData.productCount || 0}</p>
         </div>
         <div className="card">
-          <h3>Cantidad de Facturas</h3>
-          <p>{dashboardData.billCount || 0}</p>
+          <h3>Cantidad de Ordenes</h3>
+          <p>{dashboardData.orderCount || 0}</p>
         </div>
       </div>
     </div>

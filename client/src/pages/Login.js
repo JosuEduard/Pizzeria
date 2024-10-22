@@ -18,10 +18,10 @@ const Login = () => {
         console.log("Login exitoso");
         navigate('/dashboard'); // Redirige al dashboard
       } else {
-        setError('Credenciales incorrectas');
+        setError('Error al iniciar sesión');
       }
     } catch (err) {
-      setError('Ocurrió un error al iniciar sesión');
+      setError('Credenciales incorrectas, usuario o contraseña inválidos');
     }
   };
 
