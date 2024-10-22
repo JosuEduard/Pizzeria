@@ -1,33 +1,8 @@
-import React, { useState, useEffect } from 'react';
+// OrdersTable.jsx
+import React, { useState } from 'react';
 import '../styles/order.css';
 
-const OrdersTable = () => {
-  const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  const fetchOrders = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch('http://localhost:8080/order/get');
-      const data = await response.json();
-      if (response.ok) {
-        setOrders(data);
-      } else {
-        setError('Error al cargar los pedidos');
-      }
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-      setError('Error al cargar los pedidos');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+const OrdersTable = ({ orders, onEdit, onDelete, isLoading, error }) => {
   const formatDate = (dateString) => {
     const options = { 
       year: 'numeric', 
@@ -55,6 +30,12 @@ const OrdersTable = () => {
       style: 'currency',
       currency: 'MXN'
     }).format(amount);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar esta orden?')) {
+      onDelete(id);
+    }
   };
 
   if (isLoading) {
@@ -102,20 +83,14 @@ const OrdersTable = () => {
                   <td>{formatStatus(order.status)}</td>
                   <td className="actions-cell">
                     <button 
-                      className="action-btn view-btn"
-                      onClick={() => console.log('Ver detalles', order.id)}
-                    >
-                      Ver
-                    </button>
-                    <button 
                       className="action-btn edit-btn"
-                      onClick={() => console.log('Editar', order.id)}
+                      onClick={() => onEdit(order)}
                     >
                       Editar
                     </button>
                     <button 
                       className="action-btn delete-btn"
-                      onClick={() => console.log('Eliminar', order.id)}
+                      onClick={() => handleDelete(order.id)}
                     >
                       Eliminar
                     </button>

@@ -9,8 +9,9 @@ const Order = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);// Cambiado a true inicialmente
-  const [orders, setOrders] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
+  const [editingOrder, setEditingOrder] = useState(null);
   const [orderDetails, setOrderDetails] = useState({
     name: '',
     email: '',
@@ -18,7 +19,7 @@ const Order = () => {
     paymentMethod: 'Credit Card',
   });
 
-  // 2. Función para obtener productos
+  // Fetch functions
   const fetchProducts = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -37,15 +38,13 @@ const Order = () => {
     }
   }, []);
 
-  // 3. Función para obtener categorías
-  // Función para obtener categorías
   const fetchCategories = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await fetch('http://localhost:8080/category/get');
       const data = await response.json();
       if (response.ok) {
-        setCategories(data.results); 
+        setCategories(data.results);
       } else {
         setError(data.message || "Error al cargar las categorías.");
       }
@@ -56,16 +55,6 @@ const Order = () => {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    fetchProducts();
-    fetchCategories();
-  }, [fetchProducts, fetchCategories]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setOrderDetails({ ...orderDetails, [name]: value });
-  };
 
   const fetchOrders = async () => {
     try {
@@ -85,6 +74,60 @@ const Order = () => {
     }
   };
 
+  useEffect(() => {
+    fetchProducts();
+    fetchCategories();
+    fetchOrders();
+  }, [fetchProducts, fetchCategories]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setOrderDetails({ ...orderDetails, [name]: value });
+  };
+
+  const resetForm = () => {
+    setOrderDetails({
+      name: '',
+      email: '',
+      contactNumber: '',
+      paymentMethod: 'Credit Card',
+    });
+    setSelectedCategory('');
+    setSelectedProduct('');
+    setQuantity(1);
+    setEditingOrder(null);
+  };
+
+  const handleEdit = (order) => {
+    setEditingOrder(order);
+    setOrderDetails({
+      name: order.name,
+      email: order.email,
+      contactNumber: order.contact_number,
+      paymentMethod: order.payment_method,
+    });
+    // Aquí podrías también establecer la categoría y producto si los tienes en los datos
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8080/order/delete/${id}`, {
+        method: 'DELETE',
+      });
+      
+      if (response.ok) {
+        // Actualizar la lista de órdenes después de eliminar
+        fetchOrders();
+      } else {
+        const data = await response.json();
+        setError(data.message || 'Error al eliminar la orden');
+      }
+    } catch (error) {
+      console.error('Error al eliminar la orden:', error);
+      setError('Error al eliminar la orden');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedCategory || !selectedProduct) {
@@ -92,7 +135,6 @@ const Order = () => {
       return;
     }
 
-    // Encontrar el producto seleccionado para obtener su precio
     const selectedProductData = products.find(p => p.id === parseInt(selectedProduct));
     if (!selectedProductData) {
       setError('Producto no encontrado');
@@ -106,61 +148,65 @@ const Order = () => {
       email: orderDetails.email,
       contact_number: orderDetails.contactNumber,
       payment_method: orderDetails.paymentMethod,
-      total_amount: total,
-      products: [{
-        category: selectedCategory,
-        product: selectedProduct,
-        price: selectedProductData.price,
-        quantity: quantity,
-        total: total
-      }]
+      total_amount: total
     };
-  
+
     try {
-      const response = await fetch('http://localhost:8080/order/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      });
+      let response;
+      if (editingOrder) {
+        // Si estamos editando, incluimos el ID en los datos
+        orderData.id = editingOrder.id;
+        response = await fetch('http://localhost:8080/order/update', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData),
+        });
+      } else {
+        // Si es una nueva orden
+        response = await fetch('http://localhost:8080/order/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...orderData,
+            products: [{
+              category: selectedCategory,
+              product: selectedProduct,
+              price: selectedProductData.price,
+              quantity: quantity,
+              total: total
+            }]
+          }),
+        });
+      }
+
       const data = await response.json();
       if (response.ok) {
-        console.log('Orden agregada exitosamente:', data);
-        // Limpiar el formulario
-        setOrderDetails({
-          name: '',
-          email: '',
-          contactNumber: '',
-          paymentMethod: 'Credit Card',
-        });
-        setSelectedCategory('');
-        setSelectedProduct('');
-        setQuantity(1);
-        setError('');
-        
-        // Llamar a fetchOrders para actualizar la tabla inmediatamente
+        resetForm();
         fetchOrders();
       } else {
-        setError(data.message || "Error al agregar la orden.");
+        setError(data.message || "Error al procesar la orden.");
       }
     } catch (error) {
-      console.error('Error al enviar la orden:', error);
-      setError("Error al agregar la orden.");
+      console.error('Error al procesar la orden:', error);
+      setError("Error al procesar la orden.");
     }
   };
 
-
-  if (isLoading) {
+  if (isLoading && !orders.length) {
     return <div>Cargando...</div>;
   }
 
   return (
     <div className="order-container">
-      <h2 className='dashboard-title'>Nueva orden</h2>
+      <h2 className='dashboard-title'>
+        {editingOrder ? 'Editar orden' : 'Nueva orden'}
+      </h2>
       {error && <div className="error-message">{error}</div>}
-      <form className="order-form " onSubmit={handleSubmit}>
-        {/* Nombre del cliente */}
+      <form className="order-form" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Datos del cliente</legend>
           <div className="form-group">
@@ -175,7 +221,6 @@ const Order = () => {
             />
           </div>
 
-          {/* Email del cliente */}
           <div className="form-group">
             <label>Correo electrónico:</label>
             <input
@@ -188,7 +233,6 @@ const Order = () => {
             />
           </div>
 
-          {/* Número de contacto */}
           <div className="form-group">
             <label>Número de contacto:</label>
             <input
@@ -201,10 +245,9 @@ const Order = () => {
             />
           </div>
         </fieldset>
-        {/* Seleccionar categoría */}
+
         <fieldset>
           <legend>Datos del pedido</legend>
-          {/* Seleccionar categoría */}
           <div className="form-group">
             <label>Selecciona una categoría:</label>
             <select
@@ -222,7 +265,6 @@ const Order = () => {
             </select>
           </div>
 
-          {/* Seleccionar producto */}
           {selectedCategory && (
             <div className="form-group">
               <label>Selecciona un producto:</label>
@@ -244,7 +286,6 @@ const Order = () => {
             </div>
           )}
 
-          {/* Cantidad */}
           <div className="form-group">
             <label>Cantidad:</label>
             <input
@@ -257,8 +298,6 @@ const Order = () => {
             />
           </div>
 
-
-          {/* Método de pago */}
           <div className="form-group">
             <label>Método de pago:</label>
             <select
@@ -274,9 +313,30 @@ const Order = () => {
             </select>
           </div>
         </fieldset>
-        <button className="submit-btn" type="submit">Hacer pedido</button>
+
+        <div className="form-actions">
+          <button className="submit-btn" type="submit">
+            {editingOrder ? 'Actualizar pedido' : 'Hacer pedido'}
+          </button>
+          {editingOrder && (
+            <button
+              type="button"
+              className="cancel-btn"
+              onClick={resetForm}
+            >
+              Cancelar edición
+            </button>
+          )}
+        </div>
       </form>
-      <OrdersTable />
+
+      <OrdersTable
+        orders={orders}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        isLoading={isLoading}
+        error={error}
+      />
     </div>
   );
 };
