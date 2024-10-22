@@ -152,12 +152,11 @@
 }
 
 .product-table thead {
-  background-color: #888; /* Rojo claro */
+  background-color: hsl(210 17% 98%);
 }
 
 .product-table th {
   font-weight: bold;
-  text-transform: uppercase;
   color: #333;
 }
 

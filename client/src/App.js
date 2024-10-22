@@ -9,7 +9,7 @@ import Product from './pages/Product';
 import Bills from './pages/Bills';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import Order from './pages/OrderPage'; // Importar la página de pedidos
+import Order from './pages/OrderPage';
 
 const Layout = ({ children }) => (
   <div className="app-container">

@@ -1,3 +1,4 @@
+// Archivo que exporta la aplicación y sus rutas para que pueda ser utilizada por otros archivos
 const express = require('express');
 let cors = require('cors');
 const connection = require('./connection');
